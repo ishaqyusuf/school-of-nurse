@@ -1,4 +1,5 @@
 export function transformQuestions(questions: any, answers: any) {
+  console.log({ questions, answers });
   let questionList: any[] = [];
   let q: any = null;
   let qs = questions
@@ -59,4 +60,5 @@ export function transformQuestions(questions: any, answers: any) {
   });
   if (question) qss.push(question);
   console.log(question);
+  return qss;
 }
