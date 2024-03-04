@@ -48,7 +48,7 @@ export default function TransformedSection() {
     //   }
     // }
   }
-  function exportCsv() {
+  async function exportCsv() {
     // const dot = objectToDotNotation()
     // document?.getElementById("exportButton").addEventListener("click", () => {
     //   const csvContent = convertToCSV(data);
@@ -57,20 +57,30 @@ export default function TransformedSection() {
     // });
     const format = ctx.getValues("csv");
     const csv = transformToCsv(arr.fields, format);
-    const euri = encodeURI(csv);
+    // const euri = encodeURI(csv);
+    // const link = document.createElement("a");
+    // link.setAttribute("href", euri);
+    // link.setAttribute("download", "questions.csv");
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+
+    // return;
+    const response = await fetch("/api/export-csv", {
+      method: "POST",
+      body: JSON.stringify({
+        csv,
+      }),
+    });
+    const csvBlob = await response.blob();
+
+    const url = window.URL.createObjectURL(new Blob([csvBlob]));
     const link = document.createElement("a");
-    link.setAttribute("href", euri);
+    link.href = url;
     link.setAttribute("download", "questions.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    // return;
-    // fetch("/api/export-csv", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     csv,
-    //   }),
-    // });
   }
   return (
     <Tabs defaultValue="question" className="flex-1 mb-10">
