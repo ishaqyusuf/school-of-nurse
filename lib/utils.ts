@@ -6,7 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 export function objectToDotNotation(obj, prefix = "") {
   let result = {};
-
   for (let key in obj) {
     if (
       typeof obj[key] === "object" &&

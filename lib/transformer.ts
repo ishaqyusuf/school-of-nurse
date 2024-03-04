@@ -10,7 +10,7 @@ export function transformQuestions(questions: any, answers: any) {
   Array(99)
     .fill(null)
     .map((a, i) => (qs = qs.replaceAll(` ${100 - i}. `, `\n${100 - i}. `)));
-  ["a", "b", "c", "d"].map((c) => {
+  ["a", "b", "c", "d", "e"].map((c) => {
     qs = qs.replaceAll(`(${c}) `, `\n(${c}) `);
   });
   //   console.log(qs);
@@ -30,13 +30,11 @@ export function transformQuestions(questions: any, answers: any) {
   let qss: any[] = [];
   qs.split("\n").map((line) => {
     line = line.trim();
-
     let sn = line.split(".").filter(Boolean)[0];
     //   console.log(sn);
-
     if (Number(sn) > 0) {
       if (question) {
-        qss.push({ ...question });
+        qss.push(transformOptions({ ...question }));
         // console.log(qss);
       }
       question = {
@@ -52,13 +50,26 @@ export function transformQuestions(questions: any, answers: any) {
         let optnText = line.split(" ").filter(Boolean)[0];
         if (optnText) {
           let opt = line.replace(`${optnText} `, "");
-          question.option[optnText?.replace("(", "").replace(")", "")] = opt;
-          question.answer = answersSn[question.snDot];
+          let optTxt = optnText?.replace("(", "").replace(")", "");
+          question.option[optTxt] = opt;
+          let answer = answersSn[question.snDot];
+          question.answer = answer;
         }
       }
     }
   });
-  if (question) qss.push(question);
+  if (question) qss.push(transformOptions(question));
   // console.log(question);
   return qss;
+}
+
+function transformOptions(question: any) {
+  if (question.answer?.toLowerCase() == "e") {
+    question.answer = "a";
+    question.option.a = question.option.e;
+    delete question.option.e;
+  } else {
+    delete question.option.e;
+  }
+  return question;
 }
