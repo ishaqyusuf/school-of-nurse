@@ -32,7 +32,7 @@ export function transformToCsv(data, format) {
     const dot = objectToDotNotation(d);
     let line = format;
     line.split(",").map((l) => {
-      let a = dot[l]?.replace(/"/g, '""');
+      let a = (dot[l] || "")?.replace(/"/g, '""');
 
       if (a.includes(",")) a = `"${a}"`;
 
