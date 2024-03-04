@@ -22,7 +22,7 @@ export default function TransformedSection() {
       ctx.getValues("question"),
       ctx.getValues("answers")
     );
-    console.log(t);
+    // console.log(t);
     // ctx.setValue("transformed", t as any);
     arr.replace(t as any);
   }

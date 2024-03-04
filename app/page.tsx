@@ -18,7 +18,7 @@ export default function HomePage() {
     : {
         csv: "question,option.a,option.b,option.c,option.d,answer",
       };
-  console.log(defaultValues);
+  // console.log(defaultValues);
 
   const form = useForm<FormType>({
     defaultValues: {
@@ -27,7 +27,7 @@ export default function HomePage() {
   });
   const [answers, question, csv] = form.watch(["answers", "question", "csv"]);
   useEffect(() => {
-    console.log("...");
+    // console.log("...");
     setValue({
       answers,
       question,

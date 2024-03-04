@@ -26,8 +26,8 @@ export function transformToCsv(data, format) {
   const csvContent: any[] = [
     "sn,question,optionA,optionB,optionC,optionD,answer",
   ];
-  console.log(data);
-  console.log(format);
+  // console.log(data);
+  // console.log(format);
   data.map((d) => {
     const dot = objectToDotNotation(d);
     let line = format;
@@ -41,6 +41,6 @@ export function transformToCsv(data, format) {
     csvContent.push(line);
   });
   const res = csvContent.join("\n");
-  console.log(res);
+  // console.log(res);
   return res;
 }

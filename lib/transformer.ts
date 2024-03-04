@@ -1,5 +1,5 @@
 export function transformQuestions(questions: any, answers: any) {
-  console.log({ questions, answers });
+  // console.log({ questions, answers });
   let questionList: any[] = [];
   let q: any = null;
   let qs = questions
@@ -15,7 +15,7 @@ export function transformQuestions(questions: any, answers: any) {
   });
   //   console.log(qs);
   let answerrs = answers.replaceAll(`\n`, " ");
-  console.log(answerrs);
+  // console.log(answerrs);
   const answersSn: any = {};
   Array(100)
     .fill(null)
@@ -37,7 +37,7 @@ export function transformQuestions(questions: any, answers: any) {
     if (Number(sn) > 0) {
       if (question) {
         qss.push({ ...question });
-        console.log(qss);
+        // console.log(qss);
       }
       question = {
         sn,
@@ -59,6 +59,6 @@ export function transformQuestions(questions: any, answers: any) {
     }
   });
   if (question) qss.push(question);
-  console.log(question);
+  // console.log(question);
   return qss;
 }

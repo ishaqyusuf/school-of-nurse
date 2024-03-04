@@ -2,7 +2,7 @@ import { objectToDotNotation, transformToCsv } from "@/lib/utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const POST = async (req, res: NextApiResponse) => {
-  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
   // console.log(req.json());
 
