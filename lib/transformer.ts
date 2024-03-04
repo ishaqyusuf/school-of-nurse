@@ -23,7 +23,7 @@ export function transformQuestions(questions: any, answers: any) {
     .map((a, i) => {
       let sn = `${i + 1}.`;
       let sec = answerrs.split(sn)[1]?.trim().split(" ")?.filter(Boolean)?.[0];
-      answersSn[sn] = sec;
+      answersSn[sn] = sec?.toLowerCase();
     });
 
   let question: any = null;
