@@ -12,6 +12,7 @@ export function transformQuestions(questions: any, answers: any) {
     .map((a, i) => (qs = qs.replaceAll(` ${100 - i}. `, `\n${100 - i}. `)));
   ["a", "b", "c", "d", "e"].map((c) => {
     qs = qs.replaceAll(`(${c}) `, `\n(${c}) `);
+    qs = qs.replaceAll(`(${c?.toUpperCase()}) `, `\n(${c}) `);
   });
   //   console.log(qs);
   let answerrs = answers.replaceAll(`\n`, " ");
