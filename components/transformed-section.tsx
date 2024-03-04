@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 import { FormType } from "@/type";
 import { transformQuestions } from "@/lib/transformer";
 import { ScrollArea } from "./ui/scroll-area";
-import { cn, objectToDotNotation } from "@/lib/utils";
+import { cn, objectToDotNotation, transformToCsv } from "@/lib/utils";
 import { Label } from "./ui/label";
 
 export default function TransformedSection() {
@@ -55,10 +55,22 @@ export default function TransformedSection() {
     //   const fileName = "exported_data.csv";
     //   downloadCSV(csvContent, fileName);
     // });
-    fetch("/api/export-csv", {
-      method: "POST",
-      //   body: {},
-    });
+    const format = ctx.getValues("csv");
+    const csv = transformToCsv(arr.fields, format);
+    const euri = encodeURI(csv);
+    const link = document.createElement("a");
+    link.setAttribute("href", euri);
+    link.setAttribute("download", "questions.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    // return;
+    // fetch("/api/export-csv", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     csv,
+    //   }),
+    // });
   }
   return (
     <Tabs defaultValue="question" className="flex-1 mb-10">
@@ -79,7 +91,7 @@ export default function TransformedSection() {
                   <div className="font-medium">{t.question}</div>
                 </div>
                 <div className="flex  flex-wrap space-x-2 mx-4">
-                  {Object.keys(t.options).map((o) => (
+                  {Object.keys(t.option).map((o) => (
                     <div
                       className={cn(
                         o == t.answer?.toLowerCase() && "bg-green-300",
@@ -88,7 +100,7 @@ export default function TransformedSection() {
                       key={o}
                     >
                       <span className="font-bold mr-2 uppercase"> {o}.</span>
-                      <span>{t.options[o]}</span>
+                      <span>{t.option[o]}</span>
                     </div>
                   ))}
                 </div>

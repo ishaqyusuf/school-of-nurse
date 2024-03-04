@@ -43,7 +43,7 @@ export function transformQuestions(questions: any, answers: any) {
         sn,
         snDot: `${sn}.`,
         question: line.replace(`${sn}. `, ""),
-        options: {},
+        option: {},
       };
       return;
     }
@@ -52,7 +52,7 @@ export function transformQuestions(questions: any, answers: any) {
         let optnText = line.split(" ").filter(Boolean)[0];
         if (optnText) {
           let opt = line.replace(`${optnText} `, "");
-          question.options[optnText?.replace("(", "").replace(")", "")] = opt;
+          question.option[optnText?.replace("(", "").replace(")", "")] = opt;
           question.answer = answersSn[question.snDot];
         }
       }

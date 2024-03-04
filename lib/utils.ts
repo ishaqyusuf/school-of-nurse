@@ -22,3 +22,25 @@ export function objectToDotNotation(obj, prefix = "") {
 
   return result;
 }
+export function transformToCsv(data, format) {
+  const csvContent: any[] = [
+    "sn,question,optionA,optionB,optionC,optionD,answer",
+  ];
+  console.log(data);
+  console.log(format);
+  data.map((d) => {
+    const dot = objectToDotNotation(d);
+    let line = format;
+    line.split(",").map((l) => {
+      let a = dot[l]?.replace(/"/g, '""');
+
+      if (a.includes(",")) a = `"${a}"`;
+
+      line = line.replace(l, a);
+    });
+    csvContent.push(line);
+  });
+  const res = csvContent.join("\n");
+  console.log(res);
+  return res;
+}

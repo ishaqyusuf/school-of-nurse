@@ -1,4 +1,4 @@
-import { objectToDotNotation } from "@/lib/utils";
+import { objectToDotNotation, transformToCsv } from "@/lib/utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
@@ -9,16 +9,10 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const { format, data } = req.query as any;
-  const csvContent = [];
-  data.map((d) => {
-    const dot = objectToDotNotation(d);
-    let line = format;
-    line.split(",").map((l) => {
-      line = line.replace(l, dot[l]);
-    });
-    csvContent;
-  });
+  console.log(req.body);
+  const { format, data } = req.body as any;
+
+  const csvContent = transformToCsv(data, format);
   //   res.status(200).json({ message: "Hello from Next.js!" });
   res.setHeader("Content-Type", "text/csv");
   res.setHeader(
@@ -27,5 +21,5 @@ export default function handler(
   );
 
   // Send CSV content
-  res.status(200).send(csvContent.join("\n") as any);
+  res.status(200).send(csvContent as any);
 }

@@ -6,9 +6,8 @@ export type FormType = {
     question;
     answer;
     snDot;
-
     sn;
-    options: {
+    option: {
       a;
       b;
       c;

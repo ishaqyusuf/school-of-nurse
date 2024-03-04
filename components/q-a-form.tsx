@@ -25,7 +25,7 @@ export default function QAFormSection() {
       <TabsContent value="answers" className="h-[90vh]">
         <Textarea
           name="answer"
-          defaultValue={ctx.getValues("question")}
+          defaultValue={ctx.getValues("answers")}
           onChange={(e) => {
             ctx.setValue("answers", e.target.value);
           }}

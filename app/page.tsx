@@ -5,12 +5,16 @@ import TransformedSection from "@/components/transformed-section";
 import { FormType } from "@/type";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-
+import { useLocalStorage } from "react-use-storage";
 export default function HomePage() {
-  const saved = localStorage.getItem("school-of-nurse");
+  const [saved, setValue, removeValue] = useLocalStorage(
+    "school-of-nurse",
+    null
+  );
+  // const saved = localStorage.getItem("school-of-nurse");
 
   const defaultValues = saved
-    ? JSON.parse(saved)
+    ? saved
     : {
         csv: "question,option.a,option.b,option.c,option.d,answer",
       };
@@ -24,15 +28,19 @@ export default function HomePage() {
   const [answers, question, csv] = form.watch(["answers", "question", "csv"]);
   useEffect(() => {
     console.log("...");
-
-    localStorage.setItem(
-      "school-of-nurse",
-      JSON.stringify({
-        answers,
-        question,
-        csv,
-      })
-    );
+    setValue({
+      answers,
+      question,
+      csv,
+    } as any);
+    // localStorage.setItem(
+    //   "school-of-nurse",
+    //   JSON.stringify({
+    //     answers,
+    //     question,
+    //     csv,
+    //   })
+    // );
   }, [answers, question, csv]);
   const value = {
     form,
