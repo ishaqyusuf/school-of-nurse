@@ -50,8 +50,8 @@ export function transformQuestions(questions: any, answers: any) {
   qs = qs.replace(/([A-E])\. /gi, (match, p1) => {
     return `(${p1.toLowerCase()}) `;
   });
+  qs = qs.replace(/(\([a-e]\))([^\s])/gi, "$1 $2");
   ["a", "b", "c", "d", "e"].map((opt) => {
-    qs = qs.replace(/(\([a-e]\))([^\s])/gi, "$1 $2");
     qs = qs.replaceAll(`(${opt}) `, `\n(${opt}) `);
     qs = qs.replaceAll(`(${opt?.toUpperCase()}) `, `\n(${opt}) `);
   });
