@@ -47,10 +47,10 @@ export function transformQuestions(questions: any, answers: any) {
           `\n${questionCount - i}. `
         ))
     );
-  qs = qs.replace(/([A-E])\. /gi, (match, p1) => {
+  qs = qs.replaceAll(/([a-e])\. /gi, (match, p1) => {
     return `(${p1.toLowerCase()}) `;
   });
-  qs = qs.replace(/(\([a-e]\))([^\s])/gi, "$1 $2");
+  qs = qs.replaceAll(/(\([a-e]\))([^\s])/gi, "$1 $2");
   ["a", "b", "c", "d", "e"].map((opt) => {
     qs = qs.replaceAll(`(${opt}) `, `\n(${opt}) `);
     qs = qs.replaceAll(`(${opt?.toUpperCase()}) `, `\n(${opt}) `);
