@@ -7,27 +7,56 @@ export function transformQuestions(questions: any, answers: any) {
     .filter((f) => !Number(f.trim()))
     .join(" ")
     .replace("  ", " ");
-  Array(99)
+  const answersSn: any = {};
+  let questionCount = 0;
+  let answerrs = answers.replaceAll(`\n`, " ");
+  while (true) {
+    let csn = questionCount + 1;
+    let sn = `${csn}.`;
+    let sec = answerrs
+      .split(sn)[1]
+      ?.trim()
+      .split(" ")
+      ?.filter(Boolean)?.[0]
+      ?.trim()
+      ?.toLowerCase();
+    if (sec) {
+      answersSn[sn] = sec;
+      questionCount = csn;
+    } else break;
+  }
+  // Array(100)
+  //   .fill(null)
+  //   .map((a, i) => {
+  //     let sn = `${i + 1}.`;
+  //     let sec = answerrs
+  //       .split(sn)[1]
+  //       ?.trim()
+  //       .split(" ")
+  //       ?.filter(Boolean)?.[0]
+  //       ?.trim()
+  //       ?.toLowerCase();
+  //     answersSn[sn] = sec;
+  //   });
+  Array(questionCount - 1)
     .fill(null)
-    .map((a, i) => (qs = qs.replaceAll(` ${100 - i}. `, `\n${100 - i}. `)));
-  ["a", "b", "c", "d", "e"].map((c) => {
-    qs = qs.replaceAll(`(${c}) `, `\n(${c}) `);
-    qs = qs.replaceAll(`(${c?.toUpperCase()}) `, `\n(${c}) `);
+    .map(
+      (a, i) =>
+        (qs = qs.replaceAll(
+          ` ${questionCount - i}. `,
+          `\n${questionCount - i}. `
+        ))
+    );
+  ["a", "b", "c", "d", "e"].map((opt) => {
+    qs = qs.replaceAll(`(${opt}) `, `\n(${opt}) `);
+    qs = qs.replaceAll(`(${opt?.toUpperCase()}) `, `\n(${opt}) `);
   });
   //   console.log(qs);
-  let answerrs = answers.replaceAll(`\n`, " ");
   // console.log(answerrs);
-  const answersSn: any = {};
-  Array(100)
-    .fill(null)
-    .map((a, i) => {
-      let sn = `${i + 1}.`;
-      let sec = answerrs.split(sn)[1]?.trim().split(" ")?.filter(Boolean)?.[0];
-      answersSn[sn] = sec?.toLowerCase();
-    });
 
   let question: any = null;
-  console.log(qs.split("\n"));
+  // console.log(qs.split("\n"));
+
   let qss: any[] = [];
   qs.split("\n").map((line) => {
     line = line.trim();
