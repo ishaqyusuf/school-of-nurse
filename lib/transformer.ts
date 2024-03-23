@@ -47,6 +47,9 @@ export function transformQuestions(questions: any, answers: any) {
           `\n${questionCount - i}. `
         ))
     );
+  qs = qs.replace(/([A-E])\. /gi, (match, p1) => {
+    return `(${p1.toLowerCase()}) `;
+  });
   ["a", "b", "c", "d", "e"].map((opt) => {
     qs = qs.replace(/(\([a-e]\))([^\s])/gi, "$1 $2");
     qs = qs.replaceAll(`(${opt}) `, `\n(${opt}) `);
